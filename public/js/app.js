@@ -8,6 +8,7 @@
 //   .catch(error => {
 //     console.log(error);
 //   });
+//test changes
 const messageOne = document.querySelector("#errorDisplay");
 const messageTwo = document.querySelector("#resultDisplay");
 
