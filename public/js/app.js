@@ -14,6 +14,7 @@ const messageTwo = document.querySelector("#resultDisplay");
 
 function fetchResults(location) {
   messageOne.innerHTML = "Loading...";
+  messageTwo.innerHTML = "";
   fetch("/weather?address=" + location).then(response => {
     response.json().then(data => {
       if (data.error) {
