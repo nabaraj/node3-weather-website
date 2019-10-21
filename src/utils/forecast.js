@@ -13,14 +13,24 @@ const forecast = (latitude, longitude, callback) => {
     } else if (body.error) {
       callback("Unable to find location", undefined);
     } else {
+      let maxTemp = -Infinity,
+        minTemp = Infinity;
+      body.daily.data.map(item => {
+        if (maxTemp < item.temperatureHigh) {
+          maxTemp = item.temperatureHigh;
+        }
+        minTemp = minTemp > item.temperatureLow ? item.temperatureLow : minTemp;
+      });
+
       callback(
         undefined,
-        body.daily.data[0].summary +
-          " It is currently " +
-          body.currently.temperature +
-          " degress out. There is a " +
-          body.currently.precipProbability +
-          "% chance of rain."
+        `${body.daily.data[0].summary}
+          It is currently
+          ${body.currently.temperature}
+           degress out. There is a 
+          ${body.currently.precipProbability}
+           % chance of rain. Max-temp: ${maxTemp}, 
+           Min-temp: ${minTemp}`
       );
     }
   });
